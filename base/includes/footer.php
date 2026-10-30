@@ -24,6 +24,7 @@
                 <ul>
                     <li><a href="about.php">About us</a></li>
                     <li><a href="contact.php">Contact</a></li>
+                    <li><a href="admin.php">Staff login</a></li>
                 </ul>
             </div>
             <div>
@@ -41,5 +42,8 @@
 </footer>
 
 <script src="js/main.js"></script>
+<?php foreach (isset($pageScripts) ? $pageScripts : [] as $script): ?>
+<script src="<?= e($script) ?>"></script>
+<?php endforeach; ?>
 </body>
 </html>

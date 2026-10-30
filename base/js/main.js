@@ -66,6 +66,16 @@ function setupReveal() {
     });
 }
 
+// Submit a form as soon as a select marked data-autosubmit changes (e.g. sorting).
+function setupAutoSubmit() {
+    document.querySelectorAll('select[data-autosubmit]').forEach(function (select) {
+        select.addEventListener('change', function () {
+            select.form.submit();
+        });
+    });
+}
+
 setupMobileNav();
 setupHeaderBorder();
 setupReveal();
+setupAutoSubmit();

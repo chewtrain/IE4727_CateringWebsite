@@ -2,40 +2,11 @@
 $pageTitle = 'Buffet Catering in Singapore';
 require __DIR__ . '/includes/header.php';
 
-// Featured buffet packages.
-// TODO: replace with SELECT ... FROM packages WHERE is_featured = 1 once the database exists.
-$packages = [
-    [
-        'id'          => 1,
-        'name'        => 'Classic Local',
-        'tagline'     => 'Hawker favourites, done properly.',
-        'description' => 'Nasi goreng, satay, sambal prawns and more. Choose 8 dishes.',
-        'price'       => 16.80,
-        'min_pax'     => 30,
-        'image'       => 'images/pkg-classic-local.jpg',
-        'alt'         => 'Nasi goreng topped with a fried egg, with satay and prawn crackers',
-    ],
-    [
-        'id'          => 2,
-        'name'        => 'Nusantara Feast',
-        'tagline'     => 'Rich, spiced and slow-cooked.',
-        'description' => 'Coconut rice, beef rendang, ayam goreng and sambal. Choose 9 dishes.',
-        'price'       => 19.80,
-        'min_pax'     => 30,
-        'image'       => 'images/pkg-nusantara.jpg',
-        'alt'         => 'Nasi lemak with fried chicken, egg and sambal on a banana leaf',
-    ],
-    [
-        'id'          => 3,
-        'name'        => 'Dim Sum High Tea',
-        'tagline'     => 'Light bites for long afternoons.',
-        'description' => 'Har gow, siew mai, buns and kueh. Choose 7 items.',
-        'price'       => 14.80,
-        'min_pax'     => 20,
-        'image'       => 'images/pkg-dim-sum-tea.jpg',
-        'alt'         => 'Bamboo steamers of har gow, siew mai and other dim sum',
-    ],
-];
+// Featured buffet packages, straight from the database.
+$packages = db()->query(
+    'SELECT id, name, tagline, description, price_per_pax, min_pax, image, image_alt
+     FROM packages WHERE is_featured = 1 AND is_active = 1 ORDER BY sort_order LIMIT 3'
+)->fetchAll();
 
 $occasions = [
     ['title' => 'Corporate events',  'text' => 'Meetings, seminars and launches.',   'image' => 'images/occasion-corporate.jpg',   'alt' => 'A buffet table with chafing dishes at an outdoor event'],
@@ -75,13 +46,13 @@ $earliest = earliestDeliveryDate();
         <div class="card-grid">
             <?php foreach ($packages as $pkg): ?>
                 <article class="card reveal">
-                    <img class="card-image" src="<?= e($pkg['image']) ?>" alt="<?= e($pkg['alt']) ?>" loading="lazy">
+                    <img class="card-image" src="<?= e($pkg['image']) ?>" alt="<?= e($pkg['image_alt']) ?>" loading="lazy">
                     <div class="card-body">
                         <h3><?= e($pkg['name']) ?></h3>
                         <p class="card-tagline"><?= e($pkg['tagline']) ?></p>
                         <p class="card-text"><?= e($pkg['description']) ?></p>
                         <p class="card-price">
-                            <strong><?= money($pkg['price']) ?></strong> per guest
+                            <strong><?= money($pkg['price_per_pax']) ?></strong> per guest
                             <span class="card-min">Min. <?= (int) $pkg['min_pax'] ?> guests</span>
                         </p>
                         <a class="btn btn-primary btn-small" href="package.php?id=<?= (int) $pkg['id'] ?>">Choose dishes</a>

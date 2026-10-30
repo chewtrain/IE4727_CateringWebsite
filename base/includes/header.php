@@ -49,3 +49,11 @@ $fullTitle = isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME;
 </header>
 
 <main id="main">
+<?php $flashes = takeFlashes(); ?>
+<?php if ($flashes): ?>
+    <div class="container flash-stack">
+        <?php foreach ($flashes as $flash): ?>
+            <p class="alert alert-<?= e($flash['type']) ?>" role="status"><?= e($flash['message']) ?></p>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
