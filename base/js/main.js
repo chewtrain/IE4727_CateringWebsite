@@ -75,7 +75,20 @@ function setupAutoSubmit() {
     });
 }
 
+// Ask before destructive actions. A form or its submit button can carry
+// data-confirm="message"; the server still checks everything.
+function setupConfirm() {
+    document.addEventListener('submit', function (event) {
+        var button = event.submitter;
+        var message = (button && button.dataset.confirm) || event.target.dataset.confirm;
+        if (message && !window.confirm(message)) {
+            event.preventDefault();
+        }
+    });
+}
+
 setupMobileNav();
 setupHeaderBorder();
 setupReveal();
 setupAutoSubmit();
+setupConfirm();

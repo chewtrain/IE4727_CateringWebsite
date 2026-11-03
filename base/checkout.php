@@ -113,10 +113,13 @@ function fieldError($errors, $field)
 }
 ?>
 
-<section class="page-head">
-    <div class="container">
-        <h1>Checkout.</h1>
-        <p class="lead">No account needed. We'll email your confirmation and tracking link.</p>
+<section class="page-head page-head-split">
+    <div class="container split-grid">
+        <div class="split-text">
+            <h1>Checkout.</h1>
+            <p class="lead">No account needed. We'll email your confirmation and tracking link.</p>
+        </div>
+        <img src="images/occasion-corporate.jpg" alt="A buffet table with chafing dishes set up at an outdoor event">
     </div>
 </section>
 
@@ -221,7 +224,8 @@ function fieldError($errors, $field)
             <ul class="summary-items">
                 <?php foreach ($cart['lines'] as $line): ?>
                     <li>
-                        <span><?= e($line['package']['name']) ?> <span class="muted">x <?= (int) $line['guests'] ?> guests</span></span>
+                        <img src="<?= e($line['package']['image']) ?>" alt="" width="56" height="42">
+                        <span class="summary-item-name"><?= e($line['package']['name']) ?> <span class="muted">x <?= (int) $line['guests'] ?> guests</span></span>
                         <span><?= money($line['line_total']) ?></span>
                     </li>
                 <?php endforeach; ?>

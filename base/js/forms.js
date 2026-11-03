@@ -62,8 +62,11 @@
         }
         if (field.dataset.match) {
             var other = form.querySelector('#' + field.dataset.match);
-            if (other && other.value.trim().toLowerCase() !== value.toLowerCase()) {
-                return 'The two email addresses do not match.';
+            var same = field.type === 'password'
+                ? other && other.value === field.value
+                : other && other.value.trim().toLowerCase() === value.toLowerCase();
+            if (!same) {
+                return field.type === 'password' ? 'The two passwords do not match.' : 'The two email addresses do not match.';
             }
         }
         if (field.type === 'tel' && !/^[689]\d{7}$/.test(value.replace(/\s/g, ''))) {

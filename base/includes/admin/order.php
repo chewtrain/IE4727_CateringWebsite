@@ -26,6 +26,22 @@ if (!$order) {
 $allowed = $nextStatuses[$order['status']];
 $formError = '';
 
+// Only orders that were never paid, or were cancelled, can be deleted.
+// Paid orders stay for the sales records.
+$deletable = in_array($order['status'], ['pending_payment', 'payment_failed', 'cancelled'], true);
+
+if (isPost() && postValue('action') === 'delete_order') {
+    checkCsrf();
+    if ($deletable) {
+        // Items, chosen dishes and history go too (ON DELETE CASCADE).
+        db()->prepare('DELETE FROM orders WHERE id = ?')->execute([$order['id']]);
+        flash('success', 'Order ' . $order['order_ref'] . ' was deleted.');
+        redirect('admin.php?view=orders');
+    }
+    flash('error', 'Paid orders cannot be deleted. Cancel the order instead.');
+    redirect('admin.php?view=order&id=' . $order['id']);
+}
+
 if (isPost() && postValue('action') === 'update_status') {
     checkCsrf();
     $newStatus = postValue('status');
@@ -51,16 +67,15 @@ $items = getOrderItems($order['id']);
 $history = getOrderHistory($order['id']);
 
 $pageTitle = 'Order ' . $order['order_ref'] . ' | Staff';
+$adminHeading = 'Order ' . $order['order_ref'];
+$adminCrumb = $order['order_ref'];
+$adminIntro = $order['customer_name'] . ', ' . date('l, j F Y', strtotime($order['event_date'])) . ', ' . $order['time_slot'];
 require __DIR__ . '/top.php';
 ?>
 
 <section class="section-tight">
     <div class="container">
-        <p class="eyebrow"><a href="admin.php?view=orders">Orders</a> / <?= e($order['order_ref']) ?></p>
-        <div class="admin-head">
-            <h1><?= e($order['order_ref']) ?></h1>
-            <span class="badge badge-<?= e($order['status']) ?>"><?= e(statusLabel($order['status'])) ?></span>
-        </div>
+        <p class="status-line">Status: <span class="badge badge-<?= e($order['status']) ?>"><?= e(statusLabel($order['status'])) ?></span></p>
 
         <div class="order-grid">
             <div>
@@ -149,6 +164,17 @@ require __DIR__ . '/top.php';
                         <dt>Placed</dt><dd><?= e(date('j M Y, g:i a', strtotime($order['created_at']))) ?></dd>
                     </dl>
                 </div>
+
+                <?php if ($deletable): ?>
+                    <form class="summary danger-zone" method="post" action="admin.php?view=order&amp;id=<?= (int) $order['id'] ?>"
+                          data-confirm="Delete order <?= e($order['order_ref']) ?> and its history? This cannot be undone.">
+                        <?= csrfField() ?>
+                        <input type="hidden" name="action" value="delete_order">
+                        <h2>Delete order</h2>
+                        <p class="field-hint">Unpaid and cancelled orders can be removed. Paid orders are kept for the sales records.</p>
+                        <button class="btn btn-danger btn-block" type="submit">Delete order</button>
+                    </form>
+                <?php endif; ?>
             </aside>
         </div>
     </div>

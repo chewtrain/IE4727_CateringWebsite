@@ -50,7 +50,7 @@ CREATE TABLE package_rules (
     choose_count TINYINT UNSIGNED NOT NULL,
     PRIMARY KEY (package_id, category_id),
     FOREIGN KEY (package_id)  REFERENCES packages(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES categories(id)
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- Which dishes are offered in which package (many-to-many).

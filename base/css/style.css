@@ -1783,26 +1783,9 @@ input.is-invalid {
     font-size: 13px;
 }
 
-.admin-head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px 20px;
-    margin: 8px 0 24px;
-}
 
-.admin-head h1 {
-    font-size: 40px;
-}
 
-.admin-head h2 {
-    margin-top: 32px;
-    font-size: 28px;
-}
 
-.admin-head .alert {
-    margin: 0;
-}
 
 .filter-bar {
     display: flex;
@@ -2235,4 +2218,357 @@ input.is-invalid {
 .btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Page photos and full staff CRUD screens
+   ========================================================================== */
+
+/* Header with text on the left and a photo on the right. */
+.page-head-split {
+    padding: 56px 0 24px;
+    text-align: left;
+}
+
+.split-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 48px;
+}
+
+.split-grid img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
+
+.page-head-split .lead {
+    margin-left: 0;
+}
+
+/* Package photos in the checkout summary. */
+.summary-items li {
+    align-items: center;
+}
+
+.summary-items img {
+    flex: 0 0 56px;
+    width: 56px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.summary-item-name {
+    flex: 1;
+}
+
+.pay-image {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border-radius: var(--radius-small);
+}
+
+/* Staff banner: photo with the page heading over it. */
+.admin-hero {
+    padding-top: 28px;
+}
+
+.admin-hero-inner {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.admin-hero-inner img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.admin-hero-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 32px;
+    color: #fff;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.15));
+}
+
+.admin-hero-text h1 {
+    font-size: 40px;
+}
+
+.admin-hero-text p {
+    max-width: 560px;
+    margin-top: 6px;
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.admin-hero-text .admin-crumb {
+    margin: 0 0 6px;
+    font-size: 13px;
+}
+
+.admin-crumb a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.status-line {
+    margin-bottom: 20px;
+}
+
+.rating-summary {
+    margin-bottom: 16px;
+}
+
+.section-gap {
+    margin-top: 56px;
+}
+
+.row-actions {
+    white-space: nowrap;
+}
+
+.row-actions form {
+    display: inline;
+    margin-left: 12px;
+}
+
+.row-actions .btn + .link-button {
+    margin-left: 12px;
+}
+
+.inline-form {
+    display: flex;
+    gap: 8px;
+}
+
+.inline-form input {
+    width: 200px;
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+.link-danger {
+    color: #b42318;
+}
+
+.btn-danger {
+    color: #fff;
+    background: #b42318;
+}
+
+.btn-danger:hover {
+    background: #8a1c13;
+}
+
+.danger-zone {
+    border-color: #f3c1bd;
+}
+
+/* Package cards in the staff area. */
+.admin-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.admin-card {
+    overflow: hidden;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.admin-card.is-off img {
+    filter: grayscale(1);
+    opacity: 0.6;
+}
+
+.admin-card img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.admin-card-body {
+    padding: 20px 22px 22px;
+}
+
+.admin-card-body h2 {
+    font-size: 21px;
+}
+
+.admin-card-body .package-facts {
+    margin: 12px 0;
+}
+
+.admin-card-tags {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.admin-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Package and dish forms. */
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 24px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.photo-picker {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.photo-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.photo-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.photo-option img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 3px solid transparent;
+    border-radius: 10px;
+}
+
+.photo-option input:checked + img {
+    border-color: var(--accent);
+}
+
+.photo-option input:focus-visible + img {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.rule-group {
+    margin: 0 0 18px;
+    padding: 0 0 14px;
+    border: 0;
+    border-bottom: 1px solid var(--bg-alt);
+}
+
+.rule-group legend {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.rule-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.rule-dishes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 16px;
+}
+
+.rule-dishes .checkbox {
+    font-size: 14px;
+}
+
+@media (max-width: 1068px) {
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 734px) {
+    .split-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .page-head-split {
+        padding-top: 36px;
+    }
+
+    .admin-hero-inner img {
+        height: 170px;
+    }
+
+    .admin-hero-text {
+        padding: 20px;
+    }
+
+    .admin-hero-text h1 {
+        font-size: 28px;
+    }
+
+    .photo-picker {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .rule-dishes {
+        grid-template-columns: 1fr;
+    }
+
+    .inline-form input {
+        width: 140px;
+    }
+}
+
+/* Checkboxes and pills inside a .field keep their own layout
+   (the general ".field label" rule would otherwise make them bold blocks). */
+.field label.checkbox {
+    display: flex;
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.field label.choice {
+    margin-bottom: 0;
+    font-weight: 400;
 }

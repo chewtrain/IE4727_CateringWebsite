@@ -42,17 +42,16 @@ $upcoming = db()->query(
 )->fetchColumn();
 
 $pageTitle = 'Orders | Staff';
+$adminHeading = 'Orders';
+$adminIntro = 'Every order placed on the site. Open one to update its status or email the customer.';
 require __DIR__ . '/top.php';
 ?>
 
 <section class="section-tight">
     <div class="container">
-        <div class="admin-head">
-            <h1>Orders</h1>
-            <?php if ($upcoming > 0): ?>
-                <p class="alert alert-info"><?= (int) $upcoming ?> paid order(s) are due in the next 3 days.</p>
-            <?php endif; ?>
-        </div>
+        <?php if ($upcoming > 0): ?>
+            <p class="alert alert-info"><?= (int) $upcoming ?> paid order(s) are due in the next 3 days.</p>
+        <?php endif; ?>
 
         <form class="filter-bar" method="get" action="admin.php">
             <input type="hidden" name="view" value="orders">

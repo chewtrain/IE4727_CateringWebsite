@@ -91,14 +91,13 @@ function maxOf($rows, $column)
 }
 
 $pageTitle = 'Reports | Staff';
+$adminHeading = 'Reports';
+$adminIntro = 'Sales, popular dishes and busy time slots, worked out from paid orders.';
 require __DIR__ . '/top.php';
 ?>
 
 <section class="section-tight">
     <div class="container">
-        <div class="admin-head">
-            <h1>Reports</h1>
-        </div>
 
         <form class="filter-bar" method="get" action="admin.php">
             <input type="hidden" name="view" value="reports">

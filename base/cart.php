@@ -48,15 +48,18 @@ $pageScripts = ['js/cart.js'];
 require __DIR__ . '/includes/header.php';
 ?>
 
-<section class="page-head">
-    <div class="container">
-        <h1>Your cart.</h1>
-        <?php if (!$cart['lines']): ?>
-            <p class="lead">Your cart is empty. Start with one of our buffet packages.</p>
-            <p class="page-head-actions"><a class="btn btn-primary" href="buffets.php">Browse buffets</a></p>
-        <?php else: ?>
-            <p class="lead">Check your packages and guest numbers, then continue to checkout.</p>
-        <?php endif; ?>
+<section class="page-head page-head-split">
+    <div class="container split-grid">
+        <div class="split-text">
+            <h1>Your cart.</h1>
+            <?php if (!$cart['lines']): ?>
+                <p class="lead">Your cart is empty. Start with one of our buffet packages.</p>
+                <p class="page-head-actions"><a class="btn btn-primary" href="buffets.php">Browse buffets</a></p>
+            <?php else: ?>
+                <p class="lead">Check your packages and guest numbers, then continue to checkout.</p>
+            <?php endif; ?>
+        </div>
+        <img src="images/hero-spread.jpg" alt="A table of noodles, curries, spring rolls and prawns seen from above">
     </div>
 </section>
 

@@ -36,6 +36,7 @@ if ($ref !== '' && !isset($source['email'])) {
 if ($order) {
     $items = getOrderItems($order['id']);
     $history = getOrderHistory($order['id']);
+    $photo = getOrderImage($order['id']);
 
     // When each step of the timeline was reached.
     $reached = [];
@@ -59,10 +60,13 @@ require __DIR__ . '/includes/header.php';
 ?>
 
 <?php if (!$order): ?>
-<section class="page-head">
-    <div class="container">
-        <h1>Track your order.</h1>
-        <p class="lead">Enter the order number from your confirmation email.</p>
+<section class="page-head page-head-split">
+    <div class="container split-grid">
+        <div class="split-text">
+            <h1>Track your order.</h1>
+            <p class="lead">Enter the order number from your confirmation email to see where your buffet is.</p>
+        </div>
+        <img src="images/feature-fresh.jpg" alt="Steaming plates of stir-fried vegetables, tofu and rice">
     </div>
 </section>
 
@@ -92,8 +96,9 @@ require __DIR__ . '/includes/header.php';
 </section>
 
 <?php else: ?>
-<section class="page-head">
-    <div class="container">
+<section class="page-head page-head-split">
+    <div class="container split-grid">
+        <div class="split-text">
         <p class="eyebrow">Order <?= e($order['order_ref']) ?></p>
         <h1><?= e(statusLabel($order['status'])) ?>.</h1>
         <p class="lead">
@@ -110,6 +115,8 @@ require __DIR__ . '/includes/header.php';
         <?php if ($order['status'] === 'pending_payment' || $order['status'] === 'payment_failed'): ?>
             <p class="page-head-actions"><a class="btn btn-primary" href="payment.php?ref=<?= e(urlencode($order['order_ref'])) ?>">Complete payment</a></p>
         <?php endif; ?>
+        </div>
+        <img src="<?= e($photo['image']) ?>" alt="<?= e($photo['image_alt']) ?>">
     </div>
 </section>
 

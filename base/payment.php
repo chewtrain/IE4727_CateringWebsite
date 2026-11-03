@@ -40,6 +40,8 @@ if (!$payable) {
     redirect('track.php?ref=' . urlencode($ref));
 }
 
+$photo = getOrderImage($order['id']);
+
 $pageTitle = 'Payment';
 require __DIR__ . '/includes/header.php';
 ?>
@@ -47,6 +49,7 @@ require __DIR__ . '/includes/header.php';
 <section class="section-tight">
     <div class="container pay-wrap">
         <div class="pay-card">
+            <img class="pay-image" src="<?= e($photo['image']) ?>" alt="<?= e($photo['image_alt']) ?>">
             <p class="pay-badge">Secure payment partner (simulation)</p>
             <h1>Pay <?= money($order['total']) ?></h1>
             <dl class="summary-lines">

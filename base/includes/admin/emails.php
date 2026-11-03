@@ -8,15 +8,13 @@ $emails = db()->query(
 )->fetchAll();
 
 $pageTitle = 'Email Log | Staff';
+$adminHeading = 'Email log';
+$adminIntro = 'The 50 most recent emails sent by the site. With Mailpit running, they also appear at localhost:8025.';
 require __DIR__ . '/top.php';
 ?>
 
 <section class="section-tight">
     <div class="container">
-        <div class="admin-head">
-            <h1>Email log</h1>
-            <p class="muted">The 50 most recent emails. With Mailpit running, they also appear at <a href="http://localhost:8025">localhost:8025</a>.</p>
-        </div>
 
         <?php if (!$emails): ?>
             <p class="muted">No emails sent yet. Place an order or update an order's status to send one.</p>

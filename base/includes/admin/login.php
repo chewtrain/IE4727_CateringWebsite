@@ -1,8 +1,11 @@
 <?php defined('IN_ADMIN') or exit; ?>
-<section class="page-head">
-    <div class="container">
-        <h1>Staff login.</h1>
-        <p class="lead">Manage orders, menus and reports.</p>
+<section class="page-head page-head-split">
+    <div class="container split-grid">
+        <div class="split-text">
+            <h1>Staff login.</h1>
+            <p class="lead">Manage orders, menus and reports.</p>
+        </div>
+        <img src="images/pkg-dim-sum-tea.jpg" alt="Bamboo steamers of har gow, siew mai and other dim sum">
     </div>
 </section>
 

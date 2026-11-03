@@ -63,10 +63,13 @@ function contactError($errors, $field)
 }
 ?>
 
-<section class="page-head">
-    <div class="container">
-        <h1>Get in touch.</h1>
-        <p class="lead">Questions about an order, or feedback on your last buffet? We would love to hear from you.</p>
+<section class="page-head page-head-split">
+    <div class="container split-grid">
+        <div class="split-text">
+            <h1>Get in touch.</h1>
+            <p class="lead">Questions about an order, or feedback on your last buffet? We would love to hear from you.</p>
+        </div>
+        <img src="images/occasion-family.jpg" alt="A family-style table of Asian dishes seen from above">
     </div>
 </section>
 

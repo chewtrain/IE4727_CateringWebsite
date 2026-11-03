@@ -288,6 +288,19 @@ function getOrderItems($orderId)
     return $items;
 }
 
+// Photo for an order: its first package's photo, or a general one if that
+// package has since been deleted.
+function getOrderImage($orderId)
+{
+    $stmt = db()->prepare(
+        'SELECT p.image, p.image_alt FROM order_items i JOIN packages p ON p.id = i.package_id
+         WHERE i.order_id = ? ORDER BY i.id LIMIT 1'
+    );
+    $stmt->execute([$orderId]);
+    $photo = $stmt->fetch();
+    return $photo ?: ['image' => 'images/hero-spread.jpg', 'image_alt' => 'A table of Asian dishes seen from above'];
+}
+
 function getOrderHistory($orderId)
 {
     $stmt = db()->prepare(

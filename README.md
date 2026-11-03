@@ -44,7 +44,7 @@ Read the emails at http://localhost:8025.
 | `track.php` | Order lookup by order number and email, status timeline |
 | `about.php` | About, delivery and set-up terms, time slot table, FAQ |
 | `contact.php` | Contact details and feedback form with star rating |
-| `admin.php` | Staff: orders and status updates, menu editing, reports, feedback, email log |
+| `admin.php` | Staff area (one page, tabs chosen with `?view=`): orders, packages, dishes and categories, reports, feedback, email log, staff accounts |
 
 ## Business rules
 
@@ -61,3 +61,18 @@ There are 12 tables; see `db/schema.sql`:
 - **Supporting:** `order_status_history` (drives the tracking timeline), `email_log`, `feedback`, `admins`.
 
 The seed data has 12 fictional sample orders, so the reports aren't empty.
+
+### Create, read, update, delete
+
+Customers check out as guests (no accounts) and are kept informed by email. Staff manage the data from the staff area:
+
+| Table | Create | Read | Update | Delete |
+|---|---|---|---|---|
+| packages | New package | Buffets, package, staff Packages tab | All fields, "choose N" rules, dishes offered, photo | Yes; past orders keep their copied name and price |
+| dishes | New dish | Package menus, staff Dishes tab | Edit form, available/hidden switch | Yes; past orders keep the dish name |
+| categories | Add | Dishes tab | Rename, reorder | Only when no dishes use it |
+| orders | Checkout | Track page, staff Orders tab | Payment result, staff status changes | Only unpaid or cancelled orders; paid orders are kept for sales records |
+| feedback | Contact form | Staff Feedback tab | none (it is the customer's own words) | Yes (e.g. spam) |
+| admins | Staff tab | Staff tab | Change password | Yes, except your own account |
+
+Every delete asks for confirmation in the browser and is checked again on the server.

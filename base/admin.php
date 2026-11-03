@@ -5,13 +5,29 @@ require_once __DIR__ . '/includes/config.php';
 
 define('IN_ADMIN', true);   // admin views refuse to run without this
 
+// Tabs: view => [label, banner image]
 $adminViews = [
-    'orders'   => 'Orders',
-    'menu'     => 'Menu',
-    'reports'  => 'Reports',
-    'feedback' => 'Feedback',
-    'emails'   => 'Email log',
+    'orders'   => ['Orders',    'images/occasion-corporate.jpg'],
+    'packages' => ['Packages',  'images/pkg-nusantara.jpg'],
+    'dishes'   => ['Dishes',    'images/feature-fresh.jpg'],
+    'reports'  => ['Reports',   'images/hero-spread.jpg'],
+    'feedback' => ['Feedback',  'images/occasion-family.jpg'],
+    'emails'   => ['Email log', 'images/pkg-dim-sum-tea.jpg'],
+    'staff'    => ['Staff',     'images/occasion-celebration.jpg'],
 ];
+
+// Detail and edit screens, shown under their parent tab.
+$subViews = [
+    'order'   => 'orders',
+    'package' => 'packages',
+    'dish'    => 'dishes',
+];
+
+// Error message under a form field in the staff forms.
+function adminFieldError($errors, $field)
+{
+    return isset($errors[$field]) ? '<p class="field-error">' . e($errors[$field]) . '</p>' : '';
+}
 
 // Log out.
 if (isPost() && postValue('action') === 'logout') {
@@ -51,9 +67,17 @@ if (empty($_SESSION['admin_id'])) {
     exit;
 }
 
+// A staff account deleted while logged in loses access straight away.
+$stillExists = db()->prepare('SELECT COUNT(*) FROM admins WHERE id = ?');
+$stillExists->execute([$_SESSION['admin_id']]);
+if (!$stillExists->fetchColumn()) {
+    unset($_SESSION['admin_id'], $_SESSION['admin_name']);
+    redirect('admin.php');
+}
+
 $view = getValue('view');
-if ($view === 'order') {
-    $activeTab = 'orders';          // single order detail, under the Orders tab
+if (isset($subViews[$view])) {
+    $activeTab = $subViews[$view];
 } elseif (isset($adminViews[$view])) {
     $activeTab = $view;
 } else {
