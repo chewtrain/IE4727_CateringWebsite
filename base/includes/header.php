@@ -21,13 +21,7 @@ $fullTitle = isset($pageTitle) ? $pageTitle . ' | ' . SITE_NAME : SITE_NAME;
     <nav class="nav container" aria-label="Main">
         <a class="nav-logo" href="index.php"><?= e(SITE_NAME) ?></a>
 
-        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks">
-            <span class="sr-only">Menu</span>
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-        </button>
-
-        <ul class="nav-links" id="navLinks">
+        <ul class="nav-links">
             <?php foreach ($navItems as $file => $label): ?>
                 <li>
                     <a href="<?= e($file) ?>"<?= $file === $currentPage ? ' class="active" aria-current="page"' : '' ?>>

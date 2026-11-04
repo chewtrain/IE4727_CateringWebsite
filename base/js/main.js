@@ -1,30 +1,7 @@
-// Shared page behaviour: mobile menu, header border on scroll, scroll reveal.
+// Shared page behaviour: header border on scroll, scroll reveal.
 // Plain JavaScript only (no libraries, no AJAX) per the base version rules.
 
 document.documentElement.classList.add('js');
-
-// Open and close the navigation menu on small screens.
-function setupMobileNav() {
-    var toggle = document.getElementById('navToggle');
-    var links = document.getElementById('navLinks');
-    if (!toggle || !links) {
-        return;
-    }
-
-    toggle.addEventListener('click', function () {
-        var isOpen = links.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    });
-
-    // Close the menu with the Escape key.
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && links.classList.contains('open')) {
-            links.classList.remove('open');
-            toggle.setAttribute('aria-expanded', 'false');
-            toggle.focus();
-        }
-    });
-}
 
 // Show a thin border under the header once the page is scrolled.
 function setupHeaderBorder() {
@@ -87,7 +64,6 @@ function setupConfirm() {
     });
 }
 
-setupMobileNav();
 setupHeaderBorder();
 setupReveal();
 setupAutoSubmit();
