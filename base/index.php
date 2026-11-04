@@ -35,36 +35,8 @@ $earliest = earliestDeliveryDate();
     </div>
 </section>
 
-<!-- Packages -->
-<section class="section section-alt" id="packages">
-    <div class="container">
-        <div class="section-head reveal">
-            <h2>Pick your buffet.</h2>
-            <p class="lead">Every package is priced per guest and includes delivery, warmers and full set-up.</p>
-        </div>
-
-        <div class="card-grid">
-            <?php foreach ($packages as $pkg): ?>
-                <article class="card reveal">
-                    <img class="card-image" src="<?= e($pkg['image']) ?>" alt="<?= e($pkg['image_alt']) ?>" loading="lazy">
-                    <div class="card-body">
-                        <h3><?= e($pkg['name']) ?></h3>
-                        <p class="card-tagline"><?= e($pkg['tagline']) ?></p>
-                        <p class="card-text"><?= e($pkg['description']) ?></p>
-                        <p class="card-price">
-                            <strong><?= money($pkg['price_per_pax']) ?></strong> per guest
-                            <span class="card-min">Min. <?= (int) $pkg['min_pax'] ?> guests</span>
-                        </p>
-                        <a class="btn btn-primary btn-small" href="package.php?id=<?= (int) $pkg['id'] ?>">Choose dishes</a>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
 <!-- How it works -->
-<section class="section" id="how-it-works">
+<section class="section section-alt" id="how-it-works">
     <div class="container">
         <div class="section-head reveal">
             <h2>Ordering takes minutes.</h2>
@@ -96,6 +68,34 @@ $earliest = earliestDeliveryDate();
     </div>
 </section>
 
+<!-- Packages -->
+<section class="section" id="packages">
+    <div class="container">
+        <div class="section-head reveal">
+            <h2>Pick your buffet.</h2>
+            <p class="lead">Every package is priced per guest and includes delivery, warmers and full set-up.</p>
+        </div>
+
+        <div class="card-grid">
+            <?php foreach ($packages as $pkg): ?>
+                <article class="card reveal">
+                    <img class="card-image" src="<?= e($pkg['image']) ?>" alt="<?= e($pkg['image_alt']) ?>" loading="lazy">
+                    <div class="card-body">
+                        <h3><?= e($pkg['name']) ?></h3>
+                        <p class="card-tagline"><?= e($pkg['tagline']) ?></p>
+                        <p class="card-text"><?= e($pkg['description']) ?></p>
+                        <p class="card-price">
+                            <strong><?= money($pkg['price_per_pax']) ?></strong> per guest
+                            <span class="card-min">Min. <?= (int) $pkg['min_pax'] ?> guests</span>
+                        </p>
+                        <a class="btn btn-primary btn-small" href="package.php?id=<?= (int) $pkg['id'] ?>">Choose dishes</a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
 <!-- Feature -->
 <section class="section section-alt">
     <div class="container feature">
@@ -113,11 +113,15 @@ $earliest = earliestDeliveryDate();
     </div>
 </section>
 
-<!-- Occasions -->
+<!-- Occasions and call to action -->
 <section class="section">
     <div class="container">
         <div class="section-head reveal">
             <h2>For every occasion.</h2>
+            <p class="lead">Order today for delivery as early as <strong><?= e($earliest->format('l, j F')) ?></strong>.</p>
+            <div class="section-actions">
+                <a class="btn btn-primary" href="buffets.php">Start your order</a>
+            </div>
         </div>
         <div class="occasion-grid">
             <?php foreach ($occasions as $occ): ?>
@@ -130,23 +134,6 @@ $earliest = earliestDeliveryDate();
                 </figure>
             <?php endforeach; ?>
         </div>
-    </div>
-</section>
-
-<!-- Testimonial -->
-<section class="section section-alt">
-    <blockquote class="container quote reveal">
-        <p>&ldquo;Eighty guests, zero stress. The food arrived hot, the set-up was spotless, and everyone asked who catered.&rdquo;</p>
-        <footer>Sample review: office year-end party, 80 guests</footer>
-    </blockquote>
-</section>
-
-<!-- Call to action -->
-<section class="section cta">
-    <div class="container reveal">
-        <h2>Planning an event?</h2>
-        <p class="lead">Order today for delivery as early as <strong><?= e($earliest->format('l, j F')) ?></strong>.</p>
-        <a class="btn btn-primary" href="buffets.php">Start your order</a>
     </div>
 </section>
 
