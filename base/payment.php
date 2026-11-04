@@ -31,7 +31,9 @@ if (isPost() && $payable) {
 
     if ($outcome === 'failed') {
         setOrderStatus($order['id'], 'payment_failed', 'Payment was declined');
-        flash('error', 'Your payment was declined and you have not been charged. You can try again below.');
+        $sent = sendPaymentFailure($order);
+        flash('error', 'Your payment was declined and you have not been charged. You can try again below.'
+            . ($sent ? ' A payment failure email was sent to ' . $order['email'] . '.' : ' The payment failure email could not be sent (saved in the email log).'));
         redirect('payment.php?ref=' . urlencode($ref));
     }
 }

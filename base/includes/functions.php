@@ -349,7 +349,18 @@ function validName($name)
 
 function validEmail($email)
 {
-    return strlen($email) <= 120 && filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    if (strlen($email) > 120) {
+        return false;
+    }
+
+    // Allow local test addresses such as makanco@localhost.
+    if (preg_match('/^[A-Za-z0-9._%+-]+@localhost$/i', $email)) {
+        // Validate the local part using a temporary dotted domain.
+        $testEmail = substr($email, 0, -strlen('@localhost')) . '@example.com';
+        return filter_var($testEmail, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
 // Singapore numbers: 8 digits starting with 6, 8 or 9.
@@ -426,6 +437,16 @@ function sendOrderConfirmation($order)
           . siteUrl('track.php?ref=' . urlencode($order['order_ref']) . '&email=' . urlencode($order['email'])) . "\n\n"
           . SITE_NAME . "\n" . CONTACT_PHONE . "\n";
     return sendEmail($order['email'], 'Order confirmed: ' . $order['order_ref'], $body, $order['id']);
+}
+
+function sendPaymentFailure($order)
+{
+    $body = "Hi {$order['customer_name']},\n\n"
+          . "Payment for your order {$order['order_ref']} was declined. You have not been charged, and your buffet is not confirmed yet.\n\n"
+          . "Your order has been saved. Open the tracking link below and choose Complete payment to try again:\n"
+          . siteUrl('track.php?ref=' . urlencode($order['order_ref']) . '&email=' . urlencode($order['email'])) . "\n\n"
+          . SITE_NAME . "\n" . CONTACT_PHONE . "\n";
+    return sendEmail($order['email'], 'Payment failed: ' . $order['order_ref'], $body, $order['id']);
 }
 
 function sendStatusUpdate($order, $status, $note)

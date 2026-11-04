@@ -57,7 +57,7 @@
         if (field.minLength > 0 && value.length < field.minLength) {
             return name + ' must be at least ' + field.minLength + ' characters.';
         }
-        if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) {
+        if (field.type === 'email' && !/^[^\s@]+@(?:[^\s@]+\.[^\s@]{2,}|localhost)$/i.test(value)) {
             return 'Enter a valid email address, like name@example.com.';
         }
         if (field.dataset.match) {

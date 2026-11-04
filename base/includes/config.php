@@ -13,7 +13,7 @@ define('MAX_GUESTS', 500);
 define('DELIVERY_FEE', 30.00);               // flat delivery + set-up fee (SGD)
 define('FREE_DELIVERY_MIN', 500.00);         // orders at or above this ship free
 define('CONTACT_PHONE', '+65 6123 4567');
-define('CONTACT_EMAIL', 'orders@makanco.local');
+define('CONTACT_EMAIL', 'makanco@localhost');
 
 // Database. XAMPP defaults: user root, no password.
 // 127.0.0.1 (not "localhost") makes PHP connect over TCP, which works on Mac and Windows.
