@@ -1,6 +1,6 @@
 <?php
-// Staff area. One page, several views chosen with ?view=..., so the site stays
-// within the page limit. Each view's logic and markup is in includes/admin/.
+// Staff area. One page, several views chosen with ?view=..., 
+//  Each view's logic and markup is in includes/admin/.
 require_once __DIR__ . '/includes/config.php';
 
 define('IN_ADMIN', true);   // admin views refuse to run without this
