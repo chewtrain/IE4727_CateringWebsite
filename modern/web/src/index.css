@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/* Design tokens: the same palette as the base version's style.css, so both
+   versions look like one brand. Tailwind turns each into utilities, e.g.
+   --color-ink gives text-ink / bg-ink. */
+@theme {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --color-ink: #1d1d1f;
+  --color-muted: #6e6e73;
+  --color-canvas: #ffffff;
+  --color-mist: #f5f5f7;
+  --color-line: #d2d2d7;
+  --color-accent: #c2410c;
+  --color-accent-dark: #9a3412;
+  --color-accent-soft: #fff1e8;
+  --color-danger: #b42318;
+  --color-success: #1a7f37;
+  --radius-card: 22px;
+  --ease-apple: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent rounded-md;
+  }
+  ::selection {
+    @apply bg-accent-soft;
+  }
+}
+
+/* Reusable building blocks. Declared with @utility so they can be combined
+   with other utilities and variants like any built-in Tailwind class. */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[15px] font-medium
+    transition duration-200 ease-apple active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40
+    disabled:active:scale-100;
+}
+@utility btn-primary {
+  @apply btn bg-accent text-white hover:bg-accent-dark;
+}
+@utility btn-dark {
+  @apply btn bg-ink text-white hover:bg-black;
+}
+@utility btn-ghost {
+  @apply btn text-accent hover:bg-accent-soft;
+}
+@utility btn-outline {
+  @apply btn border border-line text-ink hover:border-ink;
+}
+@utility field-input {
+  @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-[16px] text-ink transition
+    placeholder:text-muted/70 focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent/15
+    aria-invalid:border-danger aria-invalid:focus:ring-danger/15;
+}
+@utility eyebrow {
+  @apply text-sm font-semibold tracking-wide text-accent;
+}
+@utility headline {
+  @apply text-4xl font-semibold tracking-tight leading-[1.05] sm:text-5xl lg:text-6xl;
+}
+@utility container-page {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+}
+
+/* Page changes and shared photos use React's <ViewTransition>. Slightly
+   slower than the browser default, with Apple-like easing. */
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+}
+/* The navigation bar is the same on every page: keep it still and above the
+   page content while that content slides and fades into place. */
+::view-transition-group(site-nav) {
+  animation: none;
+}
+::view-transition-old(site-nav) {
+  display: none;
+}
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

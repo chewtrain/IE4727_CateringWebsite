@@ -1,1 +1,5 @@
 .DS_Store
+node_modules/
+modern/web/dist/
+modern/api/api
+modern/api/api.exe
