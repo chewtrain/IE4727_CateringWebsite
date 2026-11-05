@@ -44,7 +44,7 @@ require __DIR__ . '/includes/header.php';
 
 <section class="page-head">
     <div class="container">
-        <h1>Buffet packages.</h1>
+        <h1>Buffet packages</h1>
         <p class="lead">Priced per guest. Delivery, warmers and full set-up included with every package.</p>
     </div>
 </section>

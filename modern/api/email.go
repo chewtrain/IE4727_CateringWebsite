@@ -125,3 +125,13 @@ func (a *app) sendOrderConfirmation(ctx context.Context, o *orderRow, items []or
 		siteName + "\n" + contactPhone + "\n"
 	return a.sendEmail(ctx, o.ID, o.Email, "Order confirmed: "+o.Ref, body)
 }
+
+// Same wording as sendPaymentFailure() in base/includes/functions.php.
+func (a *app) sendPaymentFailure(ctx context.Context, o *orderRow) bool {
+	body := "Hi " + o.CustomerName + ",\n\n" +
+		"Payment for your order " + o.Ref + " was declined. You have not been charged, and your buffet is not confirmed yet.\n\n" +
+		"Your order has been saved. Open the tracking link below and choose Complete payment to try again:\n" +
+		a.trackURL(o) + "\n\n" +
+		siteName + "\n" + contactPhone + "\n"
+	return a.sendEmail(ctx, o.ID, o.Email, "Payment failed: "+o.Ref, body)
+}

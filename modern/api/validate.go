@@ -14,7 +14,7 @@ import (
 
 var (
 	nameRe     = regexp.MustCompile(`^[A-Za-z][A-Za-z .'/-]{1,59}$`)
-	emailRe    = regexp.MustCompile(`^[^\s@]+@[^\s@]+\.[^\s@]+$`)
+	emailRe    = regexp.MustCompile(`(?i)^[^\s@]+@(?:[^\s@]+\.[^\s@]+|localhost)$`) // @localhost test addresses too, like the PHP site
 	phoneRe    = regexp.MustCompile(`^[689]\d{7}$`)
 	postalRe   = regexp.MustCompile(`^\d{6}$`)
 	orderRefRe = regexp.MustCompile(`^MC-[A-Z0-9]{6}$`)

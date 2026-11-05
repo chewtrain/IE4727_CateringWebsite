@@ -11,7 +11,7 @@ $packages = db()->query(
 $occasions = [
     ['title' => 'Corporate events',  'text' => 'Meetings, seminars and launches.',   'image' => 'images/occasion-corporate.jpg',   'alt' => 'A buffet table with chafing dishes at an outdoor event'],
     ['title' => 'Celebrations',      'text' => 'Birthdays, weddings and festivals.', 'image' => 'images/occasion-celebration.jpg', 'alt' => 'Red and pink kueh apam on a cooling rack'],
-    ['title' => 'Family gatherings', 'text' => 'Home parties of 20 guests or more.', 'image' => 'images/occasion-family.jpg',      'alt' => 'A family-style table of Asian dishes seen from above'],
+    ['title' => 'Family gatherings', 'text' => 'Home parties with guests.', 'image' => 'images/occasion-family.jpg',      'alt' => 'A family-style table of Asian dishes seen from above'],
 ];
 
 $earliest = earliestDeliveryDate();
@@ -21,8 +21,8 @@ $earliest = earliestDeliveryDate();
 <section class="hero">
     <div class="container hero-text reveal">
         <p class="eyebrow">Buffet catering for 20 to 500 guests</p>
-        <h1>Feast together.<br>We'll handle the rest.</h1>
-        <p class="lead">Local favourites cooked fresh on the day, delivered hot and set up on time, anywhere in Singapore.</p>
+        <h1>Feast together  </h1>
+        <p class="lead">Local favourites cooked fresh, delivered hot, and set up on time, anywhere in Singapore.</p>
         <div class="hero-actions">
             <a class="btn btn-primary" href="buffets.php">Browse buffets</a>
             <a class="link-arrow" href="#how-it-works">How it works</a>
@@ -39,15 +39,15 @@ $earliest = earliestDeliveryDate();
 <section class="section section-alt" id="how-it-works">
     <div class="container">
         <div class="section-head reveal">
-            <h2>Ordering takes minutes.</h2>
-            <p class="lead">No account needed. Order at least <?= LEAD_DAYS ?> days ahead.</p>
+            <h2>Ordering takes minutes</h2>
+            <p class="lead">No account needed. Lead time of only <?= LEAD_DAYS ?> days ahead.</p>
         </div>
 
         <ol class="steps">
             <li class="step reveal">
                 <span class="step-number">1</span>
                 <h3>Choose a package</h3>
-                <p>Pick the buffet that suits your event and tell us how many guests.</p>
+                <p>Pick the buffet that suits your event and tell us how many guests to serve.</p>
             </li>
             <li class="step reveal">
                 <span class="step-number">2</span>
@@ -57,7 +57,7 @@ $earliest = earliestDeliveryDate();
             <li class="step reveal">
                 <span class="step-number">3</span>
                 <h3>Set the date</h3>
-                <p>Choose a delivery date and time slot, then check out as a guest.</p>
+                <p>Choose a delivery slot, then check out.</p>
             </li>
             <li class="step reveal">
                 <span class="step-number">4</span>
@@ -72,8 +72,8 @@ $earliest = earliestDeliveryDate();
 <section class="section" id="packages">
     <div class="container">
         <div class="section-head reveal">
-            <h2>Pick your buffet.</h2>
-            <p class="lead">Every package is priced per guest and includes delivery, warmers and full set-up.</p>
+            <h2>Pick your buffet</h2>
+            <p class="lead">Every package is priced per guest and includes delivery, warmers and service.</p>
         </div>
 
         <div class="card-grid">
@@ -105,7 +105,7 @@ $earliest = earliestDeliveryDate();
             <h2>Cooked this morning. Not last night.</h2>
             <p class="lead">Every order is cooked fresh on the day of your event and kept hot in our warmers until the last guest is served.</p>
             <ul class="checklist">
-                <li>Chafing dishes, serving ware and table set-up included</li>
+                <li>Chafing dishes, serve ware and table set-up included</li>
                 <li>Free delivery for orders of $<?= number_format(FREE_DELIVERY_MIN) ?> and above</li>
                 <li>Order status updates sent to your email</li>
             </ul>
@@ -117,7 +117,7 @@ $earliest = earliestDeliveryDate();
 <section class="section">
     <div class="container">
         <div class="section-head reveal">
-            <h2>For every occasion.</h2>
+            <h2>For every occasion</h2>
             <p class="lead">Order today for delivery as early as <strong><?= e($earliest->format('l, j F')) ?></strong>.</p>
             <div class="section-actions">
                 <a class="btn btn-primary" href="buffets.php">Start your order</a>

@@ -22,14 +22,14 @@ The database login is in `base/includes/config.php` (XAMPP's default is user `ro
 
 ## Email (optional)
 
-The site sends an email when an order is confirmed, when staff change its status, and when feedback arrives. Every email is also saved to the `email_log` table and shown under *Admin > Email log*, so the demo works without a mail server.
+The site sends an email when an order is confirmed, when a payment is declined, when staff change an order's status, and when feedback arrives. Every email is also saved to the `email_log` table and shown under *Admin > Email log*, so the demo works without a mail server.
 
 To receive the emails in a real inbox, use [Mailpit](https://mailpit.axllent.org/). It catches all mail locally, so nothing is sent outside your machine, as the brief requires. Start Mailpit, then set one line in XAMPP's `php.ini` and restart Apache:
 
 - Windows: `SMTP=localhost` and `smtp_port=1025`
-- Mac: `sendmail_path = "/path/to/mailpit sendmail -t"`
+- Mac: `sendmail_path = "/usr/local/bin/mailpit sendmail -t"` (Apple silicon Homebrew: `/opt/homebrew/bin/mailpit`)
 
-Read the emails at http://localhost:8025.
+Read the emails at http://localhost:8025. Mailpit catches every address, so test with addresses like `name@localhost`, which all four validators accept.
 
 ## Pages
 
@@ -65,7 +65,7 @@ The rules are set in `base/includes/config.php`. The modern version's Go API can
 | Free delivery from | $500 | `FREE_DELIVERY_MIN` (`500.00`) | `freeDeliveryCts` (`50000`, in cents) |
 | Delivery time slots | 11:00, 12:00, 15:00 and 18:00, one hour each | `$timeSlots` | `timeSlots` (same text, e.g. `"11:00 - 12:00"`) |
 | Order status names | "Awaiting payment", "Confirmed"… | `$statusLabels` | `statusLabels` |
-| Brand and contact details | Makan & Co., +65 6123 4567, orders@makanco.local | `SITE_NAME`, `CONTACT_PHONE`, `CONTACT_EMAIL` | `siteName`, `contactPhone`, `contactEmail` |
+| Brand and contact details | Makan & Co., +65 6123 4567, makanco@localhost | `SITE_NAME`, `CONTACT_PHONE`, `CONTACT_EMAIL` | `siteName`, `contactPhone`, `contactEmail` |
 
 Not copied, so there is nothing to keep in step:
 - **Prices, minimum guests, dishes and "choose N" rules** are in the database (`packages`, `package_rules`, `package_dishes`), which both versions read.
@@ -79,7 +79,7 @@ The form checks are also written more than once, because each version validates 
 | Name, email, Singapore phone and postal code, order number | `base/includes/functions.php` (`validName()`, `validEmail()`…) | `pattern` attributes in `base/checkout.php` and `base/js/forms.js` | `modern/api/validate.go` | `modern/web/src/lib/validation.ts` |
 | Exactly N dishes per course | `validateDishSelection()` in `functions.php` | `base/js/package.js` | `validateDishSelection()` in `validate.go` | `modern/web/src/pages/Package.tsx` |
 
-One small difference: the base site's JavaScript wants at least two letters after the last dot of an email (`name@site.sg`); the other three checks accept one.
+All four email checks also accept local test addresses such as `name@localhost`. One small difference: the base site's JavaScript wants at least two letters after the last dot of an email (`name@site.sg`); the other three checks accept one.
 
 ## Database
 

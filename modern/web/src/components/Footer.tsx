@@ -44,7 +44,7 @@ export function Footer() {
           <p className="font-semibold text-ink">Talk to us</p>
           <ul className="mt-2 space-y-1.5">
             <li>{rules?.contactPhone ?? '+65 6123 4567'}</li>
-            <li>{rules?.contactEmail ?? 'orders@makanco.local'}</li>
+            <li>{rules?.contactEmail ?? 'makanco@localhost'}</li>
             <li>
               <a href={`${classicUrl}admin.php`} className="hover:text-ink">
                 Staff area

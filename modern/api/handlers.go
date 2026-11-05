@@ -329,9 +329,11 @@ func (a *app) payOrder(w http.ResponseWriter, r *http.Request) {
 		a.serverError(w, r, err)
 		return
 	}
-	emailSent := false
+	var emailSent bool
 	if in.Outcome == "success" {
 		emailSent = a.sendOrderConfirmation(ctx, o, view.Items)
+	} else {
+		emailSent = a.sendPaymentFailure(ctx, o)
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"order": view, "emailSent": emailSent})
 }

@@ -7,7 +7,7 @@ import "time"
 const (
 	siteName        = "Makan & Co."
 	contactPhone    = "+65 6123 4567"
-	contactEmail    = "orders@makanco.local"
+	contactEmail    = "makanco@localhost"
 	leadDays        = 3     // orders need this many days' notice
 	maxDaysAhead    = 180   // and can be placed up to ~6 months ahead
 	maxGuests       = 500   // per package

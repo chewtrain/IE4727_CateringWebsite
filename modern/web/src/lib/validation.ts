@@ -4,7 +4,7 @@ import type { CustomerDetails, CustomerField, Rules } from './types'
 // and the PHP site. They give instant feedback; the server checks everything again.
 
 const nameRe = /^[A-Za-z][A-Za-z .'/-]{1,59}$/
-const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const emailRe = /^[^\s@]+@(?:[^\s@]+\.[^\s@]+|localhost)$/i // @localhost test addresses too, like the PHP site
 const phoneRe = /^[689]\d{7}$/
 export const orderRefRe = /^MC-[A-Z0-9]{6}$/
 
