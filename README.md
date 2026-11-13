@@ -149,62 +149,6 @@ One MySQL/MariaDB database, `makanco`, with 12 tables. It's created by `db/schem
 
 The diagram above is a screenshot of phpMyAdmin's Designer view. To see the live version, open phpMyAdmin, choose `makanco`, then the *Designer* tab, which is under *More* on narrow windows (http://localhost/phpmyadmin/index.php?route=/database/designer&db=makanco). Each coloured line joins a foreign key to the table it points to. `admins` and `feedback` aren't linked to any other table.
 
-The text diagrams below show the same links, plus which side of each link is "one" and which is "many". `1` and `N` mark one-to-many links (one category has many dishes).
-
-**Menu.** A package's menu is its rules (which categories, and how many dishes to pick from each) combined with the dishes it offers, grouped by each dish's category. (`pkg_id` and `cat_id` are short for `package_id` and `category_id`.)
-
-```
-  ┌──────────────┐ 1          N ┌──────────────────┐
-  │ categories   │──────────────│ dishes           │
-  │ PK id        │              │ PK id            │
-  │    name (UQ) │              │ FK category_id   │
-  │    sort_order│              │    is_vegetarian │
-  └──────┬───────┘              │    is_spicy      │
-         │ 1                    │    is_active     │
-         │                      └────────┬─────────┘
-         │                               │ 1
-         │ N                             │ N
-  ┌──────┴───────┐              ┌────────┴─────────┐
-  │ package_rules│              │ package_dishes   │
-  │ PK FK pkg_id │              │ PK FK package_id │
-  │ PK FK cat_id │              │ PK FK dish_id    │
-  │ choose_count │              └────────┬─────────┘
-  └──────┬───────┘                       │ N
-         │ N                             │
-         │                               │
-         │ 1                             │ 1
-         │        ┌──────────────┐       │
-         └────────│ packages     │───────┘
-                  │ PK id        │
-                  │ price_per_pax│
-                  │ min_pax      │
-                  │ is_featured  │
-                  │ is_active    │
-                  └──────────────┘
-```
-
-**Orders.** `──<` means one-to-many. At checkout, each order item copies the package's name and price, and each chosen dish copies its name and category. Editing or deleting the menu later never changes a past order.
-
-```
-orders                         PK id, order_ref UQ, customer + event details,
- │                             subtotal/delivery_fee/total, status
- │
- ├──< order_items              FK order_id               CASCADE
- │     │                       FK package_id → packages  nullable, SET NULL
- │     │                       package_name, price_per_pax  ← copied at checkout
- │     │
- │     └──< order_item_dishes  FK order_item_id          CASCADE
- │                             FK dish_id → dishes       nullable, SET NULL
- │                             dish_name, category_name  ← copied at checkout
- │
- ├──< order_status_history     FK order_id               CASCADE
- │
- └──< email_log                FK order_id               nullable, SET NULL
-
-feedback.order_ref ·····> orders.order_ref    text match only, no foreign key
-admins                                        not linked to other tables
-```
-
 ### What happens when a row is deleted
 
 | Foreign key | On delete | Effect |

@@ -1,4 +1,4 @@
-/* Makan & Co. stylesheet: minimal, Apple-inspired, desktop only. */
+/* Makan & Co. stylesheet: minimal, desktop only. */
 /* Usage comments: the .php file(s) whose markup uses each class; "(via x.js)" means
    that script adds the class. Classes used in more than 5 files are left unmarked.
    header.php/footer.php live in includes/; admin/*.php are includes/admin/*.php

@@ -118,7 +118,5 @@ The cart is a slide-out drawer available on every page.
 - **3D preview:** drawn entirely in code (no downloaded models or licences). It
   only loads on screens 1024px and wider with WebGL; phones get the dish list
   without downloading three.js.
-- **Reduced motion:** if the visitor's system asks for reduced motion, Motion and
-  the page transitions switch their movement off.
 - **Browser support:** page transitions use the View Transitions API. Browsers
   without it change pages instantly; everything else works the same.
