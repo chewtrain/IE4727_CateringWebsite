@@ -86,7 +86,7 @@ Notes:
 - Delivery is **$30**, or free from **$500**.
 - Each package has a **minimum number of guests**; the maximum is 500.
 
-### Rules kept in two places
+### [Remark, because of the 2-version (base and modern) architecture] Rules kept in two places
 
 The rules are set in `base/includes/config.php`. The modern version's Go API can't read PHP constants, so it keeps **a copy in `modern/api/rules.go`**. When you change a rule, change it in both files, or the two sites will accept and price orders differently.
 
