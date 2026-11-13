@@ -19,7 +19,7 @@ if (!$isNew) {
     }
     $stmt = $pdo->prepare('SELECT package_id FROM package_dishes WHERE dish_id = ?');
     $stmt->execute([$dishId]);
-    $inPackages = array_map('intval', $stmt->fetchAll(PDO::FEefTCH_COLUMN));
+    $inPackages = array_map('intval', $stmt->fetchAll(PDO::FETCH_COLUMN));
 }
 
 $categories = $pdo->query('SELECT id, name FROM categories ORDER BY sort_order, name')->fetchAll();

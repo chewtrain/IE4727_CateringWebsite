@@ -14,6 +14,8 @@ Online buffet catering portal (Theme 1). The base version in `base/` uses only H
 3. **Put the site in `htdocs`.** Copy the `base` folder to XAMPP's `htdocs` and rename it `makanco`, or link it so edits show up immediately:
    - Mac: `ln -s "$PWD/base" /Applications/XAMPP/xamppfiles/htdocs/makanco`
    - Windows (admin prompt): `mklink /D C:\xampp\htdocs\makanco C:\path\to\repo\base`
+
+   If a Mac shows "403 Forbidden" after you link the folder, see [Common problems](#common-problems).
 4. Open http://localhost/makanco/
 
 The database login is in `base/includes/config.php` (XAMPP's default is user `root` with no password).
@@ -30,6 +32,38 @@ To receive the emails in a real inbox, use [Mailpit](https://mailpit.axllent.org
 - Mac: `sendmail_path = "/usr/local/bin/mailpit sendmail -t"` (Apple silicon Homebrew: `/opt/homebrew/bin/mailpit`)
 
 Read the emails at http://localhost:8025. Mailpit catches every address, so test with addresses like `name@localhost`, which all four validators accept.
+
+## Common problems
+
+### Mac: "403 Forbidden" at http://localhost/makanco/ after linking `base`
+
+Apache's error log (`/Applications/XAMPP/xamppfiles/logs/error_log`) shows:
+
+```
+AH00037: Symbolic link not allowed or link target not accessible: /Applications/XAMPP/xamppfiles/htdocs/makanco
+```
+
+There's nothing wrong with the link, and XAMPP already allows symlinks (`FollowSymLinks` in `httpd.conf`). The problem is permissions. XAMPP runs Apache as the `daemon` user, and macOS doesn't let other users open your home folder (`/Users/<you>` is `drwxr-x---`). So Apache can't reach the repo the link points to.
+
+The fix is to run Apache as your own user:
+
+1. Open `/Applications/XAMPP/xamppfiles/etc/httpd.conf` and find `User daemon` (around line 173). Change it to your macOS username (`whoami` prints it). Leave `Group daemon` as it is:
+   ```
+   User yourname
+   Group daemon
+   ```
+2. Delete the session files Apache saved while it ran as `daemon`. If you don't, phpMyAdmin can fail with `session_start(): open(...) failed: Permission denied (13)`:
+   ```
+   find /Applications/XAMPP/xamppfiles/temp -name 'sess_*' ! -user "$USER" -delete
+   ```
+3. Restart Apache in the XAMPP control panel.
+4. Check it: `curl -I http://localhost/makanco/` should print `HTTP/1.1 200 OK`.
+
+Notes:
+- Don't keep the repo in `Desktop`, `Documents` or `Downloads`. macOS privacy protection blocks Apache from those folders even after this fix. A folder directly in your home folder, such as `~/IE4727-proj-main`, works.
+- Copying `base` into `htdocs` instead of linking it also avoids the problem, but then you have to copy it again after every edit.
+- `chmod o+x ~` also fixes it, but it lets every account on the Mac into your home folder, so changing Apache's user is safer.
+- Windows doesn't have this problem.
 
 ## Pages
 
